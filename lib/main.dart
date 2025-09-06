@@ -76,7 +76,7 @@ class _GamePageState extends State<GamePage> {
     if (initialized == false) {
       blueCardHeight = MediaQuery.of(context).size.height / 2;
       redCardHeight = MediaQuery.of(context).size.height / 2;
-      initialized=true;
+      initialized = true;
     }
 
     return Scaffold(
@@ -88,12 +88,19 @@ class _GamePageState extends State<GamePage> {
               print(blueCardHeight);
               setState(() {
                 blueCardHeight = blueCardHeight + 10;
-                redCardHeight =redCardHeight -10;
-                playerAScore+=5;
+                redCardHeight = redCardHeight - 10;
+                playerAScore += 5;
               });
-              double winningCardHeight = MediaQuery.of(context).size.height - 60;
-              if(blueCardHeight > winningCardHeight){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>ResultPage(playerAScore,"Player A won")));
+              double winningCardHeight =
+                  MediaQuery.of(context).size.height - 60;
+              if (blueCardHeight > winningCardHeight) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ResultPage(playerAScore, "Player A won!"),
+                  ),
+                );
               }
             },
             child: Container(
@@ -125,13 +132,20 @@ class _GamePageState extends State<GamePage> {
             padding: EdgeInsets.zero,
             onPressed: () {
               setState(() {
-                redCardHeight =redCardHeight+10;
-              blueCardHeight=blueCardHeight-10;
-              playerBScore+=5;
+                redCardHeight = redCardHeight + 10;
+                blueCardHeight = blueCardHeight - 10;
+                playerBScore += 5;
               });
-              double winningCardHeight = MediaQuery.of(context).size.height - 60;
-              if(redCardHeight > winningCardHeight){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>ResultPage(playerBScore,"Player B won")));
+              double winningCardHeight =
+                  MediaQuery.of(context).size.height - 60;
+              if (redCardHeight > winningCardHeight) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ResultPage(playerBScore, "Player B won!"),
+                  ),
+                );
               }
             },
             child: Container(
@@ -166,41 +180,45 @@ class _GamePageState extends State<GamePage> {
   }
 }
 
-class ResultPage extends StatelessWidget{
-  int score=0;
-  String player="";
-  ResultPage(this.score,this.player);
+class ResultPage extends StatelessWidget {
+  final int score;
+  final String player;
+  ResultPage(this.score, this.player);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: player=="Player A won" ? Colors.lightBlueAccent : Colors.redAccent,
+      backgroundColor: player == "Player A won!"
+          ? Colors.lightBlueAccent
+          : Colors.redAccent,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(score.toString(),style: TextStyle(
-              fontSize: 60,
-              fontWeight: FontWeight.bold
-              
-              
-            ),),
-            Text(player, style: TextStyle(
-              fontSize: 30
-            ),),
+            Text(
+              score.toString(),
+              style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+            ),
+            Text(player, style: TextStyle(fontSize: 30)),
             SizedBox(height: 40),
             MaterialButton(
               padding: EdgeInsets.all(10),
               color: Colors.white,
 
               height: 50,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(10)),
-              onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> MainApp()));
-            },
-              child: Text("Replay",style: TextStyle(
-                fontWeight: FontWeight.bold
-              ),)),
-            
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => MainApp()),
+                );
+              },
+              child: Text(
+                "Replay",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
           ],
         ),
       ),
